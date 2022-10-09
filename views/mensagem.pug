@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  form(action='mensagem', method='POST')
+    textarea(name='texto')
+    input(type='submit', value='Enviar')
+  ul
+    each mensagem in mensagens
+      li= mensagem.texto
+      a(href=`mensagem/delete?id=${mensagem.id}`) Apagar
+      button(onClick=`test(${mensagem.id})`) Alerta
+  script.
+    function test(i) {
+      fetch(`mensagem/${i}`, {
+        'method': 'DELETE'
+      }).then(e => {
+        window.location.replace("/mensagem");
+      })
+    }
